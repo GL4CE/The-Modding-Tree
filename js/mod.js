@@ -7,7 +7,7 @@ let modInfo = {
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal (1), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
 
@@ -42,7 +42,10 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+	let gain = new Decimal(0)
+	if (hasUpgrade('0', 11)) gain = gain.add(1)
+	if (hasUpgrade('0', 12)) gain = gain.times(upgradeEffect('0', 12))
+	if (hasUpgrade('0', 13)) gain = gain.times(upgradeEffect('0', 13))
 	return gain
 }
 
